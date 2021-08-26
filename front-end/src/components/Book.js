@@ -7,15 +7,19 @@ import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 
 function Book (props) {
-  const [bookArray, setBookArray] = useState([])
+  const [book, setBook] = useState({})
+  const [isLoaded, setLoaded] = useState(false)
   let bookid = props.match.params.bookId
-  let book = bookArray[0];
-  console.log("This is book array: ", bookArray)
+  console.log("This is book array: ", book)
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/books/${bookid}`)
     .then(res => res.json())
-    .then(json => setBookArray(json))
+    .then(json => {
+      setLoaded(true)
+      setBook(json.rows[0])
+      console.log("This is json: ", json)
+    })
     .catch(err => console.log("ERROR: ", err))
 
   }, [])
@@ -25,7 +29,7 @@ function Book (props) {
   let checkedOutDate = "";
   let dueBackDate = "";
 
-  if (book === undefined) {
+  if (isLoaded === false) {
     return (<div>
               <p>Currently Loading</p>
             </div>
@@ -40,7 +44,7 @@ function Book (props) {
     if (book.checked_out_date === null) {
       checkedOutDate = "None"
     } else {
-      checkedOutDate = book.checked_out_date;
+      checkedOutDate = book.checked_out_date//.slice(0, 9);
     }
 
     if (book.due_back_date === null) {

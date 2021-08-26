@@ -26,9 +26,7 @@ app.get('/api/books/', (req, res) => {
 })
 
 app.get('/api/books/:bookId', (req, res) => {
-  knex('books')
-  .select('*')
-  .where("id", req.params.bookId)
+  knex.raw(`SELECT id, title, author, isbn, checked_out, checked_out_date, (checked_out_date + interval '2 week' ) AS due_back_date FROM books WHERE id = ${req.params.bookId}`)
   .then((data) => res.status(200).json(data))
   .catch((err) => console.log("ERROR: ", err))
 })
@@ -37,3 +35,4 @@ app.get('/api/books/:bookId', (req, res) => {
 app.listen(port, () => {
   console.log("Server started listening on port: ", port);
 })
+

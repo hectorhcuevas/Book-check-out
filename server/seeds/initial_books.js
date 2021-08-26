@@ -9,7 +9,8 @@ exports.seed = function(knex) {
           isbn: "9781593279509",
           title: "Eloquent JavaScript, Third Edition",
           author: "Marijn Haverbeke",
-          checked_out: false
+          checked_out: false,
+          checked_out_date: "08/26/2021"
       },
       {
           isbn: "9781491943533",
