@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "reset": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run",
+    "start": "npm run reset && node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jest": "^27.0.6",
+    "knex": "^0.95.10",
+    "pg": "^8.7.1",
+    "supertest": "^6.1.6",
+    "update": "^0.7.4"
+  }
+}
